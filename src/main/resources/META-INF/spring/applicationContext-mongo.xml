@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd        http://www.springframework.org/schema/data/mongo        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd        http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd        http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd">
+
+
+    <mongo:repositories base-package="com.sample"/>
+
+    <!-- To translate any MongoExceptions thrown in @Repository annotated classes -->
+    <context:annotation-config/>
+
+    <bean class="org.springframework.data.mongodb.core.MongoTemplate" id="mongoTemplate">
+        <constructor-arg ref="mongoDbFactory"/>
+    </bean>
+
+
+    <mongo:db-factory host="${mongo.host}" id="mongoDbFactory" port="${mongo.port}"/>
+
+    <bean id="gridfsDb" factory-bean="mongoTemplate" factory-method="getDb" />
+    <bean id="storageService" class="com.sample.service.StorageServiceGridFSImpl">
+        <constructor-arg index="0" name="gridfsDb" ref="gridfsDb" />
+    </bean>
+</beans>

@@ -1,0 +1,23 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-07-26 20:34:33
+project --topLevelPackage com.sample --projectName prime-sample
+mongo setup --cloudFoundry true
+entity mongo --class ~.domain.User
+// [failed] field string --fieldName name --notNull --class ~.User
+// [failed] field string --fieldName name --notNull --class ~.User
+entity mongo --class ~.domain.User
+// [failed] field string --fieldName name --notNull --class ~.User
+field string --fieldName password --notNull --class ~.domain.User
+// [failed] field string --fieldName name --notNull --class ~.User
+field string --fieldName name --notNull --class ~.domain.User
+repository mongo --interface ~.repository.UserRepository --entity ~.domain.User
+service --interface ~.service.UserService --entity ~.domain.User
+field string --fieldName email --regexp "[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
+web jsf setup --implementation APACHE_MYFACES --theme  START
+web jsf all --package ~.jsf
+perform tests
+perform package
+perform eclipse
+mongo setup --cloudFoundry false
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-07-31 22:07:48
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-07-31 23:37:54
